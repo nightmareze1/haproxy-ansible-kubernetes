@@ -1,5 +1,6 @@
 # haproxy-ansible-kubernetes
 This role install HAPROXY,KEEPALIVED,STATS AND HATOP
+
 1- Launch ha-proxy ansible you need update the inventory with you haproxy ips.
 
 - based in openshift and kubespray documentation:
