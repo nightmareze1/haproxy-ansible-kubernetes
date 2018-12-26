@@ -156,18 +156,19 @@ root@jenkins# sudo ansible-playbook -i inventory/hosts.ini playbook.yml --extra-
 
 ![alt text](https://raw.githubusercontent.com/nightmareze1/haproxy-ansible-kubernetes/master/img/2.png)
 
+## Check ping VIP IP
+
+![alt text](https://raw.githubusercontent.com/nightmareze1/haproxy-ansible-kubernetes/master/img/3.png)
+
 ## Check haproxy stats using HATOP ```(inside one haproxy execute)```
 ```
 hatop -s /var/lib/haproxy/stats
 ```
-
-![alt text](https://raw.githubusercontent.com/nightmareze1/haproxy-ansible-kubernetes/master/img/3.png)
+![alt text](https://raw.githubusercontent.com/nightmareze1/haproxy-ansible-kubernetes/master/img/4.png)
 
 ## Check haproxy stats using url 
 
 ```http://172.16.250.150:9000/haproxy_stats```
-
-![alt text](https://raw.githubusercontent.com/nightmareze1/haproxy-ansible-kubernetes/master/img/4.png)
 
 ![alt text](https://raw.githubusercontent.com/nightmareze1/haproxy-ansible-kubernetes/master/img/5.png)
 
