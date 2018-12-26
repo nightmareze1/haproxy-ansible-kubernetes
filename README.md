@@ -21,7 +21,7 @@ haproxy2
 haproxy1
 haproxy2
 ```
-## You need update VIP (Loadbalancer IP for k8s) 
+## Configure VIP (Loadbalancer IP for k8s) 
 ```
 root@jenkins:/tmp/haproxy-ansible-kubernetes/ansible# ls
 inventory  playbook.yml  roles
