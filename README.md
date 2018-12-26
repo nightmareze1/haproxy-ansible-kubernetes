@@ -5,6 +5,7 @@ This role install HAPROXY,KEEPALIVED,STATS AND HATOP
 - based in openshift and kubespray documentation:
 
 https://blog.openshift.com/haproxy-highly-available-keepalived/
+
 https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ha-mode.md
 
 ## inventory example
