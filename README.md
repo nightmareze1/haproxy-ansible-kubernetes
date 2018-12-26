@@ -3,7 +3,7 @@ This role install HAPROXY,KEEPALIVED,STATS AND HATOP
 
 1- Launch ha-proxy ansible you need update the inventory with you haproxy ips.
 
-# inventory example
+## inventory example
 ```
 root@jenkins:/tmp/haproxy-ansible-kubernetes/ansible# cat inventory/hosts.ini
 ```
@@ -21,14 +21,14 @@ haproxy2
 haproxy1
 haproxy2
 ```
-# You need update VIP (Loadbalancer IP for k8s) 
+## You need update VIP (Loadbalancer IP for k8s) 
 ```
 root@jenkins:/tmp/haproxy-ansible-kubernetes/ansible# ls
 inventory  playbook.yml  roles
 root@jenkins:/tmp/haproxy-ansible-kubernetes/ansible# cat inventory/group_vars/keepalived/keepalived.yml
 ```
 
-# VIP - LOADBALANCER IP
+## VIP - LOADBALANCER IP
 ```
 keepalived_loadbalancer_vip: '172.16.250.150'
 ```
