@@ -33,6 +33,104 @@ root@jenkins:/tmp/haproxy-ansible-kubernetes/ansible# cat inventory/group_vars/k
 keepalived_loadbalancer_vip: '172.16.250.150'
 ```
 
+## HAProxy - Frontend and Backends 
+In this example I have two kubernetes clusters configured in my haproxy.yml (openshift and k8s-native with kubespray)
+```
+root@jenkins:/tmp/haproxy-ansible-kubernetes/ansible/inventory/group_vars# cat haproxy/haproxy.yml
+```
+```
+---
+haproxy_global_maxconn: 50000
+haproxy_global_ulimit: 100042
+
+haproxy_frontends:
+  - name: 'openshift_router_http'
+    bind: '*:80'
+    backends:
+      - 'openshift_router80'
+  - name: 'openshift_router_ssl'
+    bind: '*:443'
+    backends:
+      - 'openshift_router443'
+  - name: 'openshift_router_mgmt'
+    bind: '*:8443'
+    backends:
+      - 'openshift_mgmt8443'
+  - name: 'kubernetes_api'
+    bind: '*:6443'
+    backends:
+      - 'kubernetes_api6443'
+  - name: 'kubernetes_traefik_http'
+    bind: '*:9090'
+    backends:
+      - 'kubernetes_traefik9090'
+
+
+haproxy_backends:
+  - name: 'openshift_router80'
+    balance: 'source'
+    mode: 'tcp'
+    server:
+      - name: 'master0.itshell.local'
+        value: '172.16.250.160:80'
+        extra: 'check'
+      - name: 'master1.itshell.local'
+        value: '172.16.250.161:80'
+        extra: 'check'
+      - name: 'master2.itshell.local'
+        value: '172.16.250.162:80'
+        extra: 'check'
+  - name: 'openshift_router443'
+    balance: 'source'
+    mode: 'tcp'
+    server:
+      - name: 'master0.itshell.local'
+        value: '172.16.250.160:443'
+        extra: 'check'
+      - name: 'master1.itshell.local'
+        value: '172.16.250.161:443'
+        extra: 'check'
+      - name: 'master2.itshell.local'
+        value: '172.16.250.162:443'
+        extra: 'check'
+  - name: 'openshift_mgmt8443'
+    balance: 'source'
+    mode: 'tcp'
+    server:
+      - name: 'master0.itshell.local'
+        value: '172.16.250.160:8443'
+        extra: 'check'
+      - name: 'master1.itshell.local'
+        value: '172.16.250.161:8443'
+        extra: 'check'
+      - name: 'master2.itshell.local'
+        value: '172.16.250.162:8443'
+        extra: 'check'
+  - name: 'kubernetes_api6443'
+    balance: 'source'
+    mode: 'tcp'
+    server:
+      - name: 'kub0'
+        value: '172.16.250.180:6443'
+        extra: 'check'
+      - name: 'kub1'
+        value: '172.16.250.181:6443'
+        extra: 'check'
+      - name: 'kub2'
+        value: '172.16.250.182:6443'
+        extra: 'check'
+  - name: 'kubernetes_traefik9090'
+    balance: 'source'
+    mode: 'tcp'
+    server:
+      - name: 'minion0'
+        value: '172.16.250.190:80'
+        extra: 'check'
+      - name: 'minion1'
+        value: '172.16.250.191:80'
+        extra: 'check'
+```
+
 2- Later, The complete step1 you are ready to launch ansible-playbook.(optional launch common and syslog)
 ```
 ---
