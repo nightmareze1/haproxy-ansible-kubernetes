@@ -53,5 +53,10 @@ keepalived_loadbalancer_vip: '172.16.250.150'
 root@jenkins# sudo ansible-playbook -i inventory/hosts.ini playbook.yml --extra-vars="install=True allow_restart=True" -vvvv
 ```
 
+playbook results:
+
+
+
+
 
 
