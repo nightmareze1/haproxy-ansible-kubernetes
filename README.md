@@ -163,7 +163,9 @@ hatop -s /var/lib/haproxy/stats
 
 ![alt text](https://raw.githubusercontent.com/nightmareze1/haproxy-ansible-kubernetes/master/img/3.png)
 
-## Check haproxy stats using url ```http://172.16.250.150:9000/haproxy_stats```
+## Check haproxy stats using url 
+
+```http://172.16.250.150:9000/haproxy_stats```
 
 ![alt text](https://raw.githubusercontent.com/nightmareze1/haproxy-ansible-kubernetes/master/img/4.png)
 
