@@ -52,10 +52,9 @@ keepalived_loadbalancer_vip: '172.16.250.150'
 ```
 root@jenkins# sudo ansible-playbook -i inventory/hosts.ini playbook.yml --extra-vars="install=True allow_restart=True" -vvvv
 ```
+![alt text](https://raw.githubusercontent.com/nightmareze1/haproxy-ansible-kubernetes/master/img/1.png)
 
 3- playbook results:
-
-![alt text](https://raw.githubusercontent.com/nightmareze1/haproxy-ansible-kubernetes/master/img/1.png)
 
 ![alt text](https://raw.githubusercontent.com/nightmareze1/haproxy-ansible-kubernetes/master/img/2.png)
 
