@@ -1,0 +1,13 @@
+common_packages:
+  - name: 'epel-release'
+  - name: 'vim-enhanced'
+  - name: 'wget'
+  - name: 'curl'
+  - name: 'unzip'
+  - name: 'lsof'
+  - name: 'nano'
+  - name: 'tree'
+  - name: 'git'
+  - name: 'jq'
+  - name: 'nfs-utils'
+  - name: 'gcc'

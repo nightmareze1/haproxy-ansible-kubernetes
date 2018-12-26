@@ -1,0 +1,17 @@
+---
+- name: include install.yml
+  include: install.yml
+
+- name: configure keepalived
+  template:
+    src: 'etc/keepalived/keepalived-{{ product }}.cfg.j2'
+    dest: '/etc/keepalived/keepalived.conf'
+    mode: '0644'
+    owner: 'root'
+    group: 'root'
+  notify: restart keepalived
+
+- name: enable service
+  service:
+    name: 'keepalived'
+    enabled: 'yes'

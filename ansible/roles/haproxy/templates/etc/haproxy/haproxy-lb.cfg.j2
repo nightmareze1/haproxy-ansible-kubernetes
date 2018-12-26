@@ -1,0 +1,58 @@
+global
+{% if haproxy_global_ulimit is defined %}
+  ulimit-n {{ haproxy_global_ulimit }}
+{% endif %}
+  maxconn     4000
+  daemon
+
+  # turn on stats unix socket
+  stats socket /var/lib/haproxy/stats mode 0600 level admin
+
+### Defaults
+defaults
+  log {{ haproxy_default_log | default('global') }}
+{% for option in haproxy_default_options %}
+  option {{ option.name }}{% if option.value is defined %} {{ option.value }}{% endif %}
+
+{% endfor %}
+  retries {{ haproxy_default_retries | default(3) }}
+{% for timeout in haproxy_default_timeouts %}
+  timeout {{ timeout.name }}{% if timeout.value is defined %} {{timeout.value }}{% endif %}
+
+{% endfor %}
+  maxconn {{ haproxy_default_maxconn | default(3000) }}
+
+### Stats
+listen  stats :9000
+        stats enable
+        stats realm Haproxy\ Statistics
+        stats uri /haproxy_stats
+        stats auth admin:password
+        stats refresh 30
+        mode http
+
+{% if haproxy_frontends %}
+### Frontends
+{% for frontend in haproxy_frontends %}
+frontend {{ frontend.name }}
+  bind {{ frontend.bind }}
+{% for backend in frontend.backends %}
+  default_backend {{ backend }}
+{% endfor %}
+
+{% endfor %}
+{% endif %}
+
+{% if haproxy_backends %}
+### Backends
+{% for backend in haproxy_backends %}
+backend {{ backend.name }}
+  balance {{ backend.balance }}
+  mode    {{ backend.mode }}
+{% for server in backend.server %}
+      server {{ server.name }} {% if server.value is defined %}{{ server.value }}{% endif %}{% if server.extra is defined %} {{ server.extra }}{% endif %}
+
+{% endfor %}
+
+{% endfor %}
+{% endif %}

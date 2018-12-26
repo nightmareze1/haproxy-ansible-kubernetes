@@ -1,0 +1,29 @@
+---
+haproxy_frontends: no
+haproxy_backends: no
+haproxy_default_options:
+  - name: 'dontlognull'
+  - name: 'http-server-close'
+  - name: 'redispatch'
+
+haproxy_default_timeouts:
+  - name: 'http-request'
+    value: '10s'
+  - name: 'queue'
+    value: '1m'
+  - name: 'connect'
+    value: '10s'
+  - name: 'client'
+    value: '1m'
+  - name: 'server'
+    value: '1m'
+  - name: 'http-keep-alive'
+    value: '10s'
+  - name: 'check'
+    value: '10s'
+
+haproxy_stats_stats:
+  - name: 'enable'
+  - name: 'hide-version'
+  - name: 'uri'
+    value: '/haproxy'

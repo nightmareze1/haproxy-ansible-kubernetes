@@ -1,0 +1,6 @@
+{% if item.hard_value is defined %}
+{{ item.domain }} hard {{ item.name }} {{ item.hard_value }}
+{% endif %}
+{% if item.soft_value is defined %}
+{{ item.domain }} soft {{ item.name }} {{ item.soft_value }}
+{% endif %}

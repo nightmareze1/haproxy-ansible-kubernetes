@@ -1,0 +1,20 @@
+---
+- name: haproxy | install daemon
+  yum:
+    name: "haproxy{% if haproxy_rpm_version is defined %}-{{ haproxy_rpm_version }}{% endif %}"
+    state: installed
+  when: install | default(false)
+ 
+# if selinux is enabled you need permit allow traffic in any ports 
+#- name: haproxy | all ports
+#  command: setsebool -P haproxy_connect_any 1
+#  delay: 10
+#  when: install | default(false)
+
+- name: copy haproxy logrotate.d
+  copy:
+    src: 'etc/logrotate.d/haproxy'
+    dest: '/etc/logrotate.d/haproxy'
+    mode: '0644'
+    owner: 'root'
+    group: 'root'

@@ -1,0 +1,1 @@
+SYSLOGD_OPTIONS="-c 5"

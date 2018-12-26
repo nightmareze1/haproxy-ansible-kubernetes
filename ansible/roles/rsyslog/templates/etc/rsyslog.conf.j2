@@ -1,0 +1,24 @@
+{% if rsyslog_modules | default(false) %}
+# Modules
+{% for item in rsyslog_modules %}
+$ModLoad                                        {{ item.module }}
+{% if item.extras is defined %}
+{% for extra in item.extras %}
+{{ extra }}
+{% endfor %}
+{% endif %}
+
+{% endfor %}
+{% endif %}
+
+$ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
+
+{% if rsyslog_default_rules | default(false) %}
+# Rules
+{% for item in rsyslog_default_rules %}
+{{ item.rule }}                                 {{ item.logfile }}
+
+{% endfor %}
+{% endif %}
+
+$IncludeConfig /etc/rsyslog.d/*.conf

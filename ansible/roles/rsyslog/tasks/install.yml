@@ -1,0 +1,13 @@
+---
+- name: 'install rsyslog package'
+  yum:
+    name: 'rsyslog'
+    state: installed
+
+- name: 'configure logrotate'
+  template:
+    src: 'etc/logrotate.d/syslog.conf.j2'
+    dest: '/etc/logrotate.d/syslog'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'

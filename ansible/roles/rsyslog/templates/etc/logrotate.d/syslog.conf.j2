@@ -1,0 +1,29 @@
+# Managed by Ansible
+{% for item in rsyslog_default_rules %}
+{{ item.logfile | regex_replace("^-","") }}
+{% endfor %}
+{
+{% if rsyslog_logrotate_options.rotate is defined %}
+  rotate {{ rsyslog_logrotate_options.rotate }}
+{% endif %}
+{% if rsyslog_logrotate_options.frequency is defined %}
+  {{ rsyslog_logrotate_options.frequency }}
+{% endif %}
+{% if rsyslog_logrotate_options.missingok is defined and rsyslog_logrotate_options.missingok %}
+  missingok
+{% endif %}
+{% if rsyslog_logrotate_options.notifempty is defined and rsyslog_logrotate_options.notifempty %}
+  notifempty
+{% endif %}
+{% if rsyslog_logrotate_options.sharedscripts is defined and rsyslog_logrotate_options.sharedscripts %}
+  sharedscripts
+{% endif %}
+{% if rsyslog_logrotate_options.compress is defined and rsyslog_logrotate_options.compress %}
+  compress
+{% endif %}
+{% if rsyslog_logrotate_options.postrotate is defined %}
+  postrotate
+    {{ rsyslog_logrotate_options.postrotate }}
+  endscript
+{% endif %}
+}

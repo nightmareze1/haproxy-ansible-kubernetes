@@ -1,0 +1,4 @@
+---
+- name: include install.yml
+  include: install.yml
+  when: install

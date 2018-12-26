@@ -1,0 +1,22 @@
+---
+- name: "deploy hatop {{ hatop_pkg_version }}"
+  unarchive:
+    src: "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/hatop/hatop-{{ hatop_pkg_version }}.tar.gz"
+    dest: '/opt'
+    owner: 'root'
+    group: 'root'
+    copy: no
+    creates: "/opt/hatop-{{ hatop_pkg_version }}"
+
+- name: 'create hatop symlink'
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: 'link'
+    owner: 'root'
+    group: 'root'
+  with_items:
+    - src: "/opt/hatop-{{ hatop_pkg_version }}"
+      dest: '/opt/hatop'
+    - src: '/opt/hatop/bin/hatop'
+      dest: '/usr/local/bin/hatop'

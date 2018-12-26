@@ -1,0 +1,12 @@
+---
+- name: haproxy provision
+  hosts: haproxy
+  become: yes
+  become_user: 'root'
+  become_method: 'sudo'
+  
+  roles:
+    - { role: common, tags: pkg-common }
+    - { role: rsyslog, tags: rsyslog }
+    - { role: haproxy, tags: haproxy }
+    - { role: keepalived, tags: keepalived }

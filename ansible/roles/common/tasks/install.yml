@@ -1,0 +1,7 @@
+---
+- name: install common packages
+  yum:
+    name: "{{ item.name }}{% if item.version is defined%}-{{ item.version }}{% endif%}"
+    state: installed
+  with_items:
+    - "{{ common_packages | default([]) }}"

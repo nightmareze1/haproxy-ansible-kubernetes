@@ -1,0 +1,3 @@
+---
+keepalived_hosts_state: "{{ hostvars[inventory_hostname].state }}"
+keepalived_hosts_priority: "{{ hostvars[inventory_hostname].priority }}"

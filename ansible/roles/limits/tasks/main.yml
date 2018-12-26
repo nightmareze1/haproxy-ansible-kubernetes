@@ -1,0 +1,10 @@
+---
+- name: config limits.d
+  template:
+    src: 'etc/security/limits.d/template.conf.j2'
+    dest: "/etc/security/limits.d/{{ item.priority | default(99) }}-{{ item.name }}.conf"
+    mode: '0644'
+    owner: 'root'
+    group: 'root'
+  with_items: "{{ limits_limitsd }}"
+  when: limits_limitsd is defined and limits_limitsd

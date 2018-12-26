@@ -1,0 +1,15 @@
+limits_limitsd:
+  - name: 'nproc'
+    domain: '*'
+    priority: 10
+    hard_value: 16384
+    soft_value: 16384
+  - name: 'nofile'
+    domain: '*'
+    priority: 10
+    hard_value: 65536
+    soft_value: 4096
+  - name: 'stack'
+    domain: '*'
+    priority: 10
+    soft_value: 10240

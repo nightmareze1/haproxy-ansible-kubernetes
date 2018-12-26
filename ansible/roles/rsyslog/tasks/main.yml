@@ -1,0 +1,38 @@
+---
+- name: include install.yml
+  include: install.yml
+  when: install
+
+- name: copy default rsyslog config
+  copy:
+    src: 'etc/sysconfig/rsyslog'
+    dest: '/etc/sysconfig/rsyslog'
+  copy:
+    src: 'etc/sysconfig/rsyslog'
+    dest: '/etc/sysconfig/rsyslog'
+    mode: '0644'
+    owner: 'root'
+    group: 'root'
+  notify: restart rsyslog
+
+- name: copy rsyslog.conf file
+  template:
+    src: 'etc/rsyslog.conf.j2'
+    dest: "/etc/rsyslog.conf"
+    mode: '0644'
+    owner: 'root'
+    group: 'root'
+  when: rsyslog_default_rules
+  notify: restart rsyslog
+
+- name: copy rsyslog.d files
+  template:
+    src: 'etc/rsyslog.d/priority-rule.conf.j2'
+    dest: "/etc/rsyslog.d/{{ item.priority | default(90) }}-{{item.name}}.conf"
+    mode: '0644'
+    owner: 'root'
+    group: 'root'
+  with_items:
+    - "{{ rsyslog_custom_rules | default([]) }}"
+  when: rsyslog_custom_rules
+  notify: restart rsyslog

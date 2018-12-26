@@ -1,0 +1,8 @@
+---
+- name: update timezone
+  file:
+    src: "/usr/share/zoneinfo/{{ timezone }}"
+    path: '/etc/localtime'
+    state: link
+    force: yes
+  when: ansible_distribution == "Centos" and timezone is defined and timezone

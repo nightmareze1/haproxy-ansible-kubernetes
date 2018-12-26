@@ -1,0 +1,7 @@
+---
+rsyslog_custom_rules:
+  - name: 'haproxy'
+    priority: 50
+    logfile: '-/var/log/haproxy.log'
+    rule: ':programname, startswith, "haproxy"'
+    stop: yes

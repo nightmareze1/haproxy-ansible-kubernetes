@@ -1,0 +1,30 @@
+rsyslog_modules:
+  - module: 'imuxsock'
+  - module: 'imklog'
+  - module: 'imudp'
+    extras:
+      - "$UDPServerAddress 127.0.0.1"
+      - "$UDPServerRun 514"
+
+rsyslog_default_rules:
+  - logfile: '/var/log/messages'
+    rule: '*.info;mail.none;authpriv.none;cron.none'
+  - logfile: '/var/log/secure'
+    rule: 'authpriv.*'
+  - logfile: '-/var/log/maillog'
+    rule: 'mail.*'
+  - logfile: '/var/log/cron'
+    rule: 'cron.*'
+  - logfile: '/var/log/spooler'
+    rule: 'uucp,news.crit'
+  - logfile: '/var/log/boot.log'
+    rule: 'local7.*'
+
+rsyslog_logrotate_options:
+  rotate: 7
+  frequency: 'daily'
+  missingok: true
+  notifempty: true
+  sharedscripts: true
+  compress: true
+  postrotate: '/bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true'

@@ -1,0 +1,17 @@
+---
+- name: include install.yml
+  include: install.yml
+
+- name: configure haproxy
+  template:
+    src: 'etc/haproxy/haproxy-{{ product }}.cfg.j2'
+    dest: '/etc/haproxy/haproxy.cfg'
+    mode: '0644'
+    owner: 'root'
+    group: 'root'
+  notify: reload haproxy
+
+- name: enable service
+  service:
+    name: 'haproxy'
+    enabled: 'yes'
