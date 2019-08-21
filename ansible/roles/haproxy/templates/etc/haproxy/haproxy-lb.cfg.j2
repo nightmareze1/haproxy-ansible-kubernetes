@@ -2,7 +2,9 @@ global
 {% if haproxy_global_ulimit is defined %}
   ulimit-n {{ haproxy_global_ulimit }}
 {% endif %}
-  maxconn     4000
+{% if haproxy_global_maxconn is defined %}
+  maxconn     {{ haproxy_global_maxconn }}
+{% endif %}
   daemon
 
   # turn on stats unix socket
